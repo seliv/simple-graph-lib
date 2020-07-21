@@ -1,35 +1,40 @@
 package seliv.graphlib.directed;
 
+import seliv.graphlib.AbstractGraph;
 import seliv.graphlib.Graph;
 
 import java.util.*;
 
-public class DirectedGraph<V> implements Graph<V> {
-    private final Map<V, Set<V>> edges = new HashMap<>();
+public class DirectedGraph<V> extends AbstractGraph<V> {
+    private final Map<V, Set<V>> adjacency = new HashMap<>();
 
     public void addVertex(V vertex) {
-        edges.put(vertex, new HashSet<>());
+        adjacency.put(vertex, new HashSet<>());
     }
 
     public void addEdge(V vertexFrom, V vertexTo) {
-        if (!containsVertex(vertexFrom)) {
-            throw new IllegalArgumentException("From vertex " + vertexFrom + " is not found in a graph");
-        }
-        if (!containsVertex(vertexTo)) {
-            throw new IllegalArgumentException("To vertex " + vertexTo + " is not found in a graph");
-        }
-        Set<V> edgesFrom = edges.get(vertexFrom);
+        validateVertex(vertexFrom);
+        validateVertex(vertexTo);
+        Set<V> edgesFrom = adjacency.get(vertexFrom);
         edgesFrom.add(vertexTo);
     }
 
-    public List<Graph.Edge<V>> getPath(V vertexFrom, V vertexTo) {
-        // Fake implementation
-        Edge<V> edge = new Edge<>(vertexFrom, vertexTo);
-        return Collections.singletonList(edge);
+    protected void validateVertex(V vertex) throws IllegalArgumentException {
+        if (!adjacency.containsKey(vertex)) {
+            throw new IllegalArgumentException("Vertex " + vertex + " is not found in a graph");
+        }
     }
 
-    private boolean containsVertex(V vertex) {
-        return edges.containsKey(vertex);
+    protected Set<V> listAdjacent(V vertex) {
+        return adjacency.get(vertex);
+    }
+
+    protected Graph.Edge<V> getEdge(V vertexFrom, V vertexTo) {
+        // This is not a public method so invalid vertexFrom or vertexTo are a part of incorrect implementation
+        if (!adjacency.get(vertexFrom).contains(vertexTo)) { // Can throw NPE, also a part of implementation fault
+            throw new IllegalStateException("There is no edge from " + vertexFrom + " to " + vertexTo + " in a graph");
+        }
+        return new Edge<>(vertexFrom, vertexTo);
     }
 
     static class Edge<V> implements Graph.Edge<V> {
