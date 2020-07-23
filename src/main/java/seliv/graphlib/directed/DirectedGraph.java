@@ -37,6 +37,22 @@ public class DirectedGraph<V> extends AbstractGraph<V> {
         return new Edge<>(vertexFrom, vertexTo);
     }
 
+    @Override
+    protected Set<V> listVertices() {
+        return adjacency.keySet();
+    }
+
+    @Override
+    protected Set<Graph.Edge<V>> listEdges() {
+        HashSet<Graph.Edge<V>> result = new HashSet<>();
+        for (Map.Entry<V, Set<V>> entry : adjacency.entrySet()) {
+            for (V v : entry.getValue()) {
+                result.add(new Edge<>(entry.getKey(), v));
+            }
+        }
+        return result;
+    }
+
     static class Edge<V> implements Graph.Edge<V> {
         final V vertexFrom;
         final V vertexTo;

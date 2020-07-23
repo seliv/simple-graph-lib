@@ -64,4 +64,13 @@ public abstract class AbstractGraph<V> implements Graph<V> {
     protected abstract Set<V> listAdjacent(V vertex);
 
     protected abstract Graph.Edge<V> getEdge(V vertexFrom, V vertexTo);
+
+    protected abstract Set<V> listVertices();
+
+    protected abstract Set<Graph.Edge<V>> listEdges();
+
+    @Override
+    public String toString() {
+        return listVertices().toString() + ", " + listEdges().toString();
+    }
 }
