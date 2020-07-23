@@ -61,6 +61,9 @@ public abstract class AbstractGraph<V> implements Graph<V> {
      */
     protected abstract void validateVertex(V vertex) throws IllegalArgumentException;
 
+    // The following methods are not requested by the public API specification
+    // but handy for daily usage so they are declared in a common abstract class.
+
     public abstract Set<V> listAdjacent(V vertex);
 
     protected abstract Graph.Edge<V> getEdge(V vertexFrom, V vertexTo);
