@@ -1,6 +1,7 @@
 package seliv.graphlib.util;
 
 import seliv.graphlib.AbstractGraph;
+import seliv.graphlib.undirected.UndirectedGraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,23 +64,26 @@ public class GraphView<V> extends JPanel {
             Set<V> adjacent = graph.listAdjacent(fromVertex);
             for (V toVertex : adjacent) {
                 Point toPoint = vertexCoordinates.get(toVertex);
-                g.drawLine(fromPoint.x, fromPoint.y, toPoint.x, toPoint.y);
-                double dx = toPoint.x - fromPoint.x;
-                double dy = toPoint.y - fromPoint.y;
-                double l = Math.sqrt((dx * dx) + (dy * dy));
-                dx /= l;
-                dy /= l;
-                g.fillPolygon(new int[]{
-                                fromPoint.x + (int) (dy * dw),
-                                fromPoint.x - (int) (dy * dw),
-                                toPoint.x
-                        },
-                        new int[]{
-                                fromPoint.y - (int) (dx * dw),
-                                fromPoint.y + (int) (dx * dw),
-                                toPoint.y
-                        }, 3
-                );
+                if (graph instanceof UndirectedGraph) {
+                    g.drawLine(fromPoint.x, fromPoint.y, toPoint.x, toPoint.y);
+                } else {
+                    double dx = toPoint.x - fromPoint.x;
+                    double dy = toPoint.y - fromPoint.y;
+                    double l = Math.sqrt((dx * dx) + (dy * dy));
+                    dx /= l;
+                    dy /= l;
+                    g.fillPolygon(new int[]{
+                                    fromPoint.x + (int) (dy * dw),
+                                    fromPoint.x - (int) (dy * dw),
+                                    toPoint.x
+                            },
+                            new int[]{
+                                    fromPoint.y - (int) (dx * dw),
+                                    fromPoint.y + (int) (dx * dw),
+                                    toPoint.y
+                            }, 3
+                    );
+                }
             }
         }
 

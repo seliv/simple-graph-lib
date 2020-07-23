@@ -92,5 +92,19 @@ public class DirectedGraph<V> extends AbstractGraph<V> {
         public String toString() {
             return "(" + vertexFrom + " -> " + vertexTo + ')';
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Edge<?> edge = (Edge<?>) o;
+            return vertexFrom.equals(edge.vertexFrom) &&
+                    vertexTo.equals(edge.vertexTo);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(vertexFrom, vertexTo);
+        }
     }
 }
