@@ -25,7 +25,7 @@ public class DirectedGraph<V> extends AbstractGraph<V> {
         }
     }
 
-    protected Set<V> listAdjacent(V vertex) {
+    public Set<V> listAdjacent(V vertex) {
         return adjacency.get(vertex);
     }
 
@@ -38,12 +38,12 @@ public class DirectedGraph<V> extends AbstractGraph<V> {
     }
 
     @Override
-    protected Set<V> listVertices() {
+    public Set<V> listVertices() {
         return adjacency.keySet();
     }
 
     @Override
-    protected Set<Graph.Edge<V>> listEdges() {
+    public Set<Graph.Edge<V>> listEdges() {
         HashSet<Graph.Edge<V>> result = new HashSet<>();
         for (Map.Entry<V, Set<V>> entry : adjacency.entrySet()) {
             for (V v : entry.getValue()) {

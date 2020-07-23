@@ -61,13 +61,13 @@ public abstract class AbstractGraph<V> implements Graph<V> {
      */
     protected abstract void validateVertex(V vertex) throws IllegalArgumentException;
 
-    protected abstract Set<V> listAdjacent(V vertex);
+    public abstract Set<V> listAdjacent(V vertex);
 
     protected abstract Graph.Edge<V> getEdge(V vertexFrom, V vertexTo);
 
-    protected abstract Set<V> listVertices();
+    public abstract Set<V> listVertices();
 
-    protected abstract Set<Graph.Edge<V>> listEdges();
+    public abstract Set<Graph.Edge<V>> listEdges();
 
     @Override
     public String toString() {
