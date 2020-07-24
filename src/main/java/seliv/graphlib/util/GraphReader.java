@@ -18,11 +18,12 @@ import java.util.Scanner;
  * Vertices are marked 1 to V (not from 0) for historical reasons.
  */
 public class GraphReader {
-    public static void read(Graph<Long> graph, InputStream inputStream) {
+    public static Long read(Graph<Long> graph, InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
-        // Reading graph summary: the number of vertices and edges
+        // Reading graph summary: the number of vertices and edges, and the starting vertex
         long vertexCount = scanner.nextLong();
         long edgeCount = scanner.nextLong();
+        long start = scanner.nextLong();
         // Skipping the rest of the line (it can contain additional information for tests that we don't need here)
         scanner.nextLine();
 
@@ -41,5 +42,6 @@ public class GraphReader {
         }
 
         scanner.close();
+        return start;
     }
 }
