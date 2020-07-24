@@ -1,9 +1,9 @@
 package seliv.graphlib.test;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Test;
 import seliv.graphlib.Graph;
 import seliv.graphlib.directed.DirectedGraph;
 import seliv.graphlib.util.GraphReader;
@@ -28,6 +28,6 @@ public class TestResourceReader {
         List<Graph.Edge<Long>> path = g.getPath(1L, 4L);
         logger.info("Path : " + path);
 
-        Assert.assertEquals("Path length", 3, path.size());
+        Assertions.assertEquals(3, path.size(), "Path length is invalid");
     }
 }
